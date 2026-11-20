@@ -1,0 +1,10 @@
+fastapi[standard]>=0.143.0
+sqlalchemy>=2.1.8
+psycopg[binary]>=3.3.8
+python-dotenv>=1.2.4
+opentelemetry-distro[otlp]>=0.66b2
+opentelemetry-instrumentation-fastapi>=0.66b2
+opentelemetry-instrumentation-logging>=0.66b2
+# La instrumentación de SQLAlchemy 0.66b2 no soporta SQLAlchemy 2.1.x;
+# se instrumenta psycopg directamente para obtener los spans de base de datos.
+opentelemetry-instrumentation-psycopg>=0.66b2

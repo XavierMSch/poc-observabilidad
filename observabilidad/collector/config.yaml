@@ -1,0 +1,48 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+  docker_stats:
+    collection_interval: 10s
+    metrics:
+      container.cpu.logical.count: # Número de núcleos de cpu
+        enabled: true
+
+processors:
+  batch: {}
+
+exporters:
+  prometheus:
+    endpoint: 0.0.0.0:8889
+    resource_constant_labels:
+      included: ["*"]
+  
+  otlphttp/logs:
+    endpoint: http://loki:3100/otlp
+    tls:
+      insecure: true
+
+  otlp/jaeger:
+    endpoint: jaeger:4317
+    tls:
+      insecure: true
+
+service:
+  pipelines:
+    metrics:
+      receivers: [otlp, docker_stats]
+      processors: [batch]
+      exporters: [prometheus]
+    
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlphttp/logs]
+
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [otlp/jaeger]

@@ -1,0 +1,61 @@
+<section class="tarjeta" aria-labelledby="pruebas-titulo">
+  <h2 id="pruebas-titulo">Panel de pruebas</h2>
+
+  <div class="botones">
+    <button
+      type="button"
+      [disabled]="cargandoLenta()"
+      [attr.aria-busy]="cargandoLenta()"
+      (click)="simularLenta()"
+    >
+      @if (cargandoLenta()) {
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Simulando carga lenta…</span>
+      } @else {
+        <span>Simular carga lenta</span>
+      }
+    </button>
+
+    <button
+      type="button"
+      class="advertencia"
+      [disabled]="cargandoDbLenta()"
+      [attr.aria-busy]="cargandoDbLenta()"
+      (click)="simularDbLenta()"
+    >
+      @if (cargandoDbLenta()) {
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Esperando a la base de datos…</span>
+      } @else {
+        <span>Simular consulta lenta en BD</span>
+      }
+    </button>
+
+    <button
+      type="button"
+      class="peligro"
+      [disabled]="cargandoError()"
+      [attr.aria-busy]="cargandoError()"
+      (click)="simularError()"
+    >
+      @if (cargandoError()) {
+        <span class="spinner" aria-hidden="true"></span>
+        <span>Provocando error…</span>
+      } @else {
+        <span>Simular error</span>
+      }
+    </button>
+  </div>
+
+  @if (cargandoLenta() || cargandoDbLenta() || cargandoError()) {
+    <p class="estado-carga" role="status" aria-live="polite">
+      @if (cargandoLenta()) {
+        Esperando la respuesta lenta del servidor…
+      } @else if (cargandoDbLenta()) {
+        Esperando la consulta lenta de la base de datos…
+      } @else {
+        Enviando la petición que provoca el error…
+      }
+    </p>
+  }
+</section>

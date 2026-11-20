@@ -1,0 +1,91 @@
+<section class="tarjeta" aria-labelledby="registro-titulo">
+  <h2 id="registro-titulo">Registrar visita</h2>
+
+  <form class="formulario" novalidate (submit)="enviar($event)">
+    <div class="campo">
+      <label for="nombre">Nombre</label>
+      <input
+        id="nombre"
+        type="text"
+        autocomplete="name"
+        [formField]="formulario.nombre"
+        [attr.aria-invalid]="formulario.nombre().touched() && formulario.nombre().invalid()"
+        [attr.aria-describedby]="
+          formulario.nombre().touched() && nombreError() ? 'nombre-error' : null
+        "
+      />
+      @if (formulario.nombre().touched() && nombreError()) {
+        <p id="nombre-error" class="campo-error" role="alert">{{ nombreError() }}</p>
+      }
+    </div>
+
+    <div class="campo">
+      <label for="correo">Correo</label>
+      <input
+        id="correo"
+        type="email"
+        autocomplete="email"
+        [formField]="formulario.correo"
+        [attr.aria-invalid]="formulario.correo().touched() && formulario.correo().invalid()"
+        [attr.aria-describedby]="
+          formulario.correo().touched() && correoError() ? 'correo-error' : null
+        "
+      />
+      @if (formulario.correo().touched() && correoError()) {
+        <p id="correo-error" class="campo-error" role="alert">{{ correoError() }}</p>
+      }
+    </div>
+
+    <div class="campo">
+      <label for="fecha">Fecha</label>
+      <input
+        id="fecha"
+        type="date"
+        [formField]="formulario.fecha"
+        [attr.aria-invalid]="formulario.fecha().touched() && formulario.fecha().invalid()"
+        [attr.aria-describedby]="
+          formulario.fecha().touched() && fechaError() ? 'fecha-error' : null
+        "
+      />
+      @if (formulario.fecha().touched() && fechaError()) {
+        <p id="fecha-error" class="campo-error" role="alert">{{ fechaError() }}</p>
+      }
+    </div>
+
+    <div class="campo">
+      <label for="hora">Hora</label>
+      <input
+        id="hora"
+        type="time"
+        [formField]="formulario.hora"
+        [attr.aria-invalid]="formulario.hora().touched() && formulario.hora().invalid()"
+        [attr.aria-describedby]="formulario.hora().touched() && horaError() ? 'hora-error' : null"
+      />
+      @if (formulario.hora().touched() && horaError()) {
+        <p id="hora-error" class="campo-error" role="alert">{{ horaError() }}</p>
+      }
+    </div>
+
+    <div class="campo campo-completo">
+      <label for="motivo">Motivo</label>
+      <textarea
+        id="motivo"
+        rows="3"
+        [formField]="formulario.motivo"
+        [attr.aria-invalid]="formulario.motivo().touched() && formulario.motivo().invalid()"
+        [attr.aria-describedby]="
+          formulario.motivo().touched() && motivoError() ? 'motivo-error' : null
+        "
+      ></textarea>
+      @if (formulario.motivo().touched() && motivoError()) {
+        <p id="motivo-error" class="campo-error" role="alert">{{ motivoError() }}</p>
+      }
+    </div>
+
+    <div class="acciones">
+      <button type="submit" [disabled]="enviando()">
+        {{ enviando() ? 'Guardando…' : 'Registrar visita' }}
+      </button>
+    </div>
+  </form>
+</section>

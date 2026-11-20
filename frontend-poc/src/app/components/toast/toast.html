@@ -1,0 +1,19 @@
+@if (toast.mensaje(); as mensaje) {
+  <div
+    class="toast"
+    [class.toast-error]="mensaje.tipo === 'error'"
+    [class.toast-ok]="mensaje.tipo === 'ok'"
+    [attr.role]="mensaje.tipo === 'error' ? 'alert' : 'status'"
+    [attr.aria-live]="mensaje.tipo === 'error' ? 'assertive' : 'polite'"
+  >
+    <span class="toast-texto">{{ mensaje.texto }}</span>
+    <button
+      type="button"
+      class="toast-cerrar"
+      aria-label="Cerrar notificación"
+      (click)="toast.ocultar()"
+    >
+      ×
+    </button>
+  </div>
+}

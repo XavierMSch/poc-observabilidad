@@ -1,0 +1,37 @@
+<section class="tarjeta" aria-labelledby="visitas-titulo">
+  <h2 id="visitas-titulo">Visitas registradas</h2>
+
+  @if (cargando()) {
+    <p class="estado" role="status">Cargando visitas…</p>
+  } @else if (visitas().length === 0) {
+    <p class="estado">Todavía no hay visitas registradas.</p>
+  } @else {
+    <div class="tabla-contenedor">
+      <table>
+        <caption class="sr-only">
+          Listado de visitas registradas
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora</th>
+            <th scope="col">Motivo</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (visita of visitas(); track visita.id) {
+            <tr>
+              <td>{{ visita.nombre }}</td>
+              <td>{{ visita.correo }}</td>
+              <td>{{ visita.fecha }}</td>
+              <td>{{ visita.hora }}</td>
+              <td>{{ visita.motivo }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

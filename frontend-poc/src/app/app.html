@@ -1,0 +1,11 @@
+<main class="pagina">
+  <header class="cabecera">
+    <h1>Registro de visitas</h1>
+    <p>Prototipo de registro de visitas y simulación de latencia y errores.</p>
+  </header>
+
+  <app-visita-form (registrada)="cargarVisitas()" />
+  <app-visitas-table [visitas]="visitas()" [cargando]="cargandoVisitas()" />
+  <app-simulate-buttons />
+  <app-toast />
+</main>
